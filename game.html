@@ -76,7 +76,20 @@
         }
       };
 
+      o.fantan = function() {
+        o.speedY *= -1;
+      };
+
       return o;
+    };
+
+    var rectIntersects = function(a, b) {
+      if (b.y > a.y && b.y < a.y + a.image.height) {
+        if (b.x > a.x && b.x < a.x + a.image.width) {
+          return true;
+        }
+      }
+      return false;
     };
 
     var Block = function() {
@@ -88,6 +101,15 @@
         y: 100,
         w: 50,
         h: 20,
+        alive: true,
+      };
+
+      o.kill = function() {
+        o.alive = false;
+      };
+
+      o.collide = function(b) {
+        return o.alive && (rectIntersects(o, b) || rectIntersects(b, o));
       };
 
       return o;
@@ -170,7 +192,13 @@
         ball.move();
         // 判断相撞
         if (paddle.collide(ball)) {
-          ball.speedY *= -1;
+          ball.fantan();
+        }
+
+        // 判断 ball 和 block 相撞
+        if (block.collide(ball)) {
+          block.kill();
+          ball.fantan();
         }
       };
 
@@ -180,7 +208,9 @@
         game.drawImage(ball);
 
         // draw block
-        game.drawImage(block);
+        if (block.alive) {
+          game.drawImage(block);
+        }
       };
     };
 
