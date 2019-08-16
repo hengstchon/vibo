@@ -102,6 +102,30 @@ var __main = function() {
       // draw labels
       game.context.fillText("分数：" + score, 10, 290);
     };
+
+    // mouse event
+    var enableDrag = false;
+    game.canvas.addEventListener("mousedown", function(event) {
+      var x = event.offsetX;
+      var y = event.offsetY;
+      if (ball.hasPoint(x, y)) {
+        // 设置拖拽状态
+        enableDrag = true;
+      }
+    });
+    game.canvas.addEventListener("mousemove", function(event) {
+      var x = event.offsetX;
+      var y = event.offsetY;
+      if (enableDrag) {
+        ball.x = x;
+        ball.y = y;
+      }
+    });
+    game.canvas.addEventListener("mouseup", function(event) {
+      var x = event.offsetX;
+      var y = event.offsetY;
+      enableDrag = false;
+    });
   });
 
   enableDebugMode(game, true);
