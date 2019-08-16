@@ -13,25 +13,31 @@
     <script src="ball.js"></script>
     <script src="paddle.js"></script>
     <script src="block.js"></script>
+    <script src="level.js"></script>
   </head>
   <body>
     <canvas id="id-canvas" width="400" height="300"></canvas>
   </body>
   <script>
+    var loadLevel = function(n) {
+      n = n - 1;
+      level = levels[n];
+      var blocks = [];
+      for (var i = 0; i < level.length; i++) {
+        var p = level[i];
+        var b = Block(p);
+        blocks.push(b);
+      }
+      return blocks;
+    };
+
     var __main = function() {
       var game = GuaGame(30);
 
       var paddle = Paddle();
       var ball = Ball();
 
-      var blocks = [];
-      for (var i = 0; i < 3; i++) {
-        var b = Block();
-        // 设置 block 坐标
-        b.x = i * 150;
-        b.y = 50;
-        blocks.push(b);
-      }
+      var blocks = loadLevel(1);
 
       var paused = false;
       game.registerAction('a', function() {
@@ -49,6 +55,10 @@
       window.addEventListener('keydown', function(event) {
         if (event.key == 'p') {
           paused = !paused;
+        } else if (event.key == '1') {
+          blocks = loadLevel(1);
+        } else if (event.key == '2') {
+          blocks = loadLevel(2);
         }
       });
 
