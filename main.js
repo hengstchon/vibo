@@ -37,6 +37,7 @@ document
 var __main = function() {
   enableDebugMode(true);
 
+  var score = 0;
   var game = GuaGame(30);
 
   var paddle = Paddle();
@@ -72,6 +73,8 @@ var __main = function() {
       if (block.collide(ball)) {
         block.kill();
         ball.fantan();
+        // 更新分数
+        score += 100;
       }
     }
   };
@@ -88,6 +91,9 @@ var __main = function() {
         game.drawImage(block);
       }
     }
+
+    // draw labels
+    game.context.fillText("分数：" + score, 10, 290);
   };
 };
 
