@@ -1,11 +1,8 @@
-var Paddle = function() {
-  var image = imageFromPath('paddle.png');
-  var o = {
-    image: image,
-    x: 100,
-    y: 250,
-    speed: 15,
-  };
+var Paddle = function(game) {
+  var o = game.imageByName("paddle");
+  o.x = 100;
+  o.y = 250;
+  o.speed = 15;
   o.move = function(x) {
     if (x < 0) {
       x = 0;
@@ -24,7 +21,7 @@ var Paddle = function() {
   o.collide = function(ball) {
     if (ball.y + ball.image.height > o.y) {
       if (ball.x > o.x && ball.x + ball.image.width < o.x + o.image.width) {
-        log('xz');
+        log("xz");
         return true;
       }
     }

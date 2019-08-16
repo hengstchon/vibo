@@ -1,7 +1,10 @@
-var GuaGame = function(fps) {
+var GuaGame = function(fps, images, runCallback) {
+  // images 是一个对象，里面是图片的引用名字和图片路径
+  // 程序会在所有图片载入成功后才运行
   var g = {
     actions: {},
     keydowns: {},
+    images: {},
   };
 
   var canvas = document.querySelector("#id-canvas");
@@ -30,7 +33,6 @@ var GuaGame = function(fps) {
   // timer
   window.fps = 30;
   var runloop = function() {
-    log(window.fps);
     // events
     var actions = Object.keys(g.actions);
     for (var i = 0; i < actions.length; i++) {
@@ -52,9 +54,40 @@ var GuaGame = function(fps) {
     }, 1000 / window.fps);
   };
 
-  setTimeout(function() {
-    runloop();
-  }, 1000 / window.fps);
+  // 预先载入所有图片
+  var loads = [];
+  var names = Object.keys(images);
+  for (let i = 0; i < names.length; i++) {
+    let name = names[i];
+    var path = images[name];
+    let img = new Image();
+    img.src = path;
+    img.onload = function() {
+      // 存入 g.images 中
+      g.images[name] = img;
+      // 所有图片都成功载入之后，调用 run
+      loads.push(1);
+      if (loads.length == names.length) {
+        g.run();
+      }
+    };
+  }
+  g.imageByName = function(name) {
+    var img = g.images[name];
+    var image = {
+      w: img.width,
+      h: img.height,
+      image: img,
+    };
+    return image;
+  };
+  g.run = function() {
+    runCallback(g);
+    // 开始运行程序
+    setTimeout(function() {
+      runloop();
+    }, 1000 / window.fps);
+  };
 
   return g;
 };
