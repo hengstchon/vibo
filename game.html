@@ -53,12 +53,11 @@
       });
 
       window.addEventListener('keydown', function(event) {
-        if (event.key == 'p') {
+        var k = event.key;
+        if (k == 'p') {
           paused = !paused;
-        } else if (event.key == '1') {
-          blocks = loadLevel(1);
-        } else if (event.key == '2') {
-          blocks = loadLevel(2);
+        } else if ('1234567'.includes(k)) {
+          blocks = loadLevel(Number(k));
         }
       });
 
