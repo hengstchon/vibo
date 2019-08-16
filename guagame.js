@@ -28,8 +28,10 @@ var GuaGame = function(fps) {
   };
 
   // timer
-  setInterval(function() {
+  window.fps = 30;
+  var runloop = function() {
     // events
+    log(window.fps)
     var actions = Object.keys(g.actions);
     for (var i = 0; i < actions.length; i++) {
       var key = actions[i];
@@ -38,16 +40,21 @@ var GuaGame = function(fps) {
         g.actions[key]();
       }
     }
-
     // update
     g.update();
-
     // clear
     context.clearRect(0, 0, canvas.width, canvas.height);
-
     // draw
     g.draw();
-  }, 1000 / fps);
+    // next run loop
+    setTimeout(function() {
+      runloop();
+    }, 1000 / window.fps);
+  };
+
+  setTimeout(function() {
+    runloop();
+  }, 1000 / window.fps);
 
   return g;
 };
