@@ -8,6 +8,7 @@
         border: 1px black solid;
       }
     </style>
+    <script src="utils.js"></script>
     <script src="guagame.js"></script>
     <script src="ball.js"></script>
     <script src="paddle.js"></script>
@@ -17,14 +18,6 @@
     <canvas id="id-canvas" width="400" height="300"></canvas>
   </body>
   <script>
-    var log = console.log.bind(console);
-
-    var imageFromPath = function(path) {
-      var img = new Image();
-      img.src = path;
-      return img;
-    };
-
     var __main = function() {
       var game = GuaGame(30);
 
