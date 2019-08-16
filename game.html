@@ -124,7 +124,7 @@
       return o;
     };
 
-    var GuaGame = function() {
+    var GuaGame = function(fps) {
       var g = {
         actions: {},
         keydowns: {},
@@ -173,13 +173,13 @@
 
         // draw
         g.draw();
-      }, 1000 / 60);
+      }, 1000 / fps);
 
       return g;
     };
 
     var __main = function() {
-      var game = GuaGame();
+      var game = GuaGame(60);
 
       var paddle = Paddle();
       var ball = Ball();
@@ -193,6 +193,7 @@
         blocks.push(b);
       }
 
+      var paused = false;
       game.registerAction('a', function() {
         paddle.moveLeft();
       });
@@ -205,7 +206,16 @@
         ball.fire();
       });
 
+      window.addEventListener('keydown', function(event) {
+        if (event.key == 'p') {
+          paused = !paused;
+        }
+      });
+
       game.update = function() {
+        if (paused) {
+          return;
+        }
         ball.move();
         // 判断相撞
         if (paddle.collide(ball)) {
