@@ -4,8 +4,8 @@ var GuaGame = function(fps) {
     keydowns: {},
   };
 
-  var canvas = document.querySelector('#id-canvas');
-  var context = canvas.getContext('2d');
+  var canvas = document.querySelector("#id-canvas");
+  var context = canvas.getContext("2d");
 
   // draw
   g.drawImage = function(guaImage) {
@@ -16,10 +16,10 @@ var GuaGame = function(fps) {
   g.context = context;
 
   // events
-  window.addEventListener('keydown', function(event) {
+  window.addEventListener("keydown", function(event) {
     g.keydowns[event.key] = true;
   });
-  window.addEventListener('keyup', function(event) {
+  window.addEventListener("keyup", function(event) {
     g.keydowns[event.key] = false;
   });
 
@@ -30,6 +30,7 @@ var GuaGame = function(fps) {
   // timer
   window.fps = 30;
   var runloop = function() {
+    log(window.fps);
     // events
     var actions = Object.keys(g.actions);
     for (var i = 0; i < actions.length; i++) {
