@@ -42,7 +42,7 @@ var __main = function() {
   };
 
   var game = GuaGame(30, images, function(g) {
-    var s = SceneTitle(g);
+    var s = new SceneTitle(g);
     g.runWithScene(s);
   });
 
