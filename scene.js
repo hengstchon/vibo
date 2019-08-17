@@ -48,6 +48,12 @@ var Scene = function(game) {
     }
 
     ball.move();
+    // 判断游戏结束
+    if (ball.y > paddle.y) {
+      // 跳转到 游戏结束 的场景
+      var end = SceneEnd(game);
+      game.replaceScene(end);
+    }
     // 判断相撞
     if (paddle.collide(ball)) {
       ball.fantan();

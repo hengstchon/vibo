@@ -97,6 +97,9 @@ var GuaGame = function(fps, images, runCallback) {
       runloop();
     }, 1000 / window.fps);
   };
+  g.replaceScene = function(scene) {
+    g.scene = scene;
+  };
   g.__start = function(scene) {
     runCallback(g);
   };
