@@ -19,6 +19,11 @@ class GuaGame {
     this.init();
   }
 
+  static instance(...args) {
+    this.i = this.i || new this(...args);
+    return this.i;
+  }
+
   drawImage(img) {
     this.context.drawImage(img.image, img.x, img.y);
   }
