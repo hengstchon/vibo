@@ -25,14 +25,14 @@ var enableDebugMode = function(game, enable) {
       blocks = loadLevel(game, Number(k));
     }
   });
+  // 控制速度
+  document
+    .querySelector("#id-input-speed")
+    .addEventListener("input", function(event) {
+      var input = event.target;
+      window.fps = Number(input.value);
+    });
 };
-// 控制速度
-document
-  .querySelector("#id-input-speed")
-  .addEventListener("input", function(event) {
-    var input = event.target;
-    window.fps = Number(input.value);
-  });
 
 var __main = function() {
   var images = {
@@ -42,90 +42,8 @@ var __main = function() {
   };
 
   var game = GuaGame(30, images, function(g) {
-    var score = 0;
-    var paddle = Paddle(game);
-    var ball = Ball(game);
-
-    blocks = loadLevel(game, 1);
-
-    game.registerAction("a", function() {
-      paddle.moveLeft();
-    });
-
-    game.registerAction("d", function() {
-      paddle.moveRight();
-    });
-
-    game.registerAction("f", function() {
-      ball.fire();
-    });
-
-    game.update = function() {
-      if (paused) {
-        return;
-      }
-      ball.move();
-      // 判断相撞
-      if (paddle.collide(ball)) {
-        ball.fantan();
-      }
-
-      // 判断 ball 和 blocks 相撞
-      for (var i = 0; i < blocks.length; i++) {
-        var block = blocks[i];
-        if (block.collide(ball)) {
-          block.kill();
-          ball.fantan();
-          // 更新分数
-          score += 100;
-        }
-      }
-    };
-
-    game.draw = function() {
-      // draw 背景
-      game.context.fillStyle = "#554";
-      game.context.fillRect(0, 0, 400, 300);
-
-      // draw
-      game.drawImage(paddle);
-      game.drawImage(ball);
-
-      // draw blocks
-      for (var i = 0; i < blocks.length; i++) {
-        var block = blocks[i];
-        if (block.alive) {
-          game.drawImage(block);
-        }
-      }
-
-      // draw labels
-      game.context.fillText("分数：" + score, 10, 290);
-    };
-
-    // mouse event
-    var enableDrag = false;
-    game.canvas.addEventListener("mousedown", function(event) {
-      var x = event.offsetX;
-      var y = event.offsetY;
-      if (ball.hasPoint(x, y)) {
-        // 设置拖拽状态
-        enableDrag = true;
-      }
-    });
-    game.canvas.addEventListener("mousemove", function(event) {
-      var x = event.offsetX;
-      var y = event.offsetY;
-      if (enableDrag) {
-        ball.x = x;
-        ball.y = y;
-      }
-    });
-    game.canvas.addEventListener("mouseup", function(event) {
-      var x = event.offsetX;
-      var y = event.offsetY;
-      enableDrag = false;
-    });
+    var s = Scene(g);
+    g.runWithScene(s);
   });
 
   enableDebugMode(game, true);
