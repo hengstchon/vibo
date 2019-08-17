@@ -41,7 +41,7 @@ var __main = function() {
     paddle: "img/paddle.png",
   };
 
-  var game = GuaGame(30, images, function(g) {
+  var game = new GuaGame(30, images, function(g) {
     var s = SceneTitle.new(g);
     g.runWithScene(s);
   });
