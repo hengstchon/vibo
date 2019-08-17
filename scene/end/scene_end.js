@@ -7,11 +7,6 @@ class SceneEnd extends GuaScene {
     });
   }
 
-  static new(game) {
-    var i = new this(game);
-    return i;
-  }
-
   draw() {
     // draw labels
     this.game.context.fillText("游戏结束, 按 r 重玩返回标题界面", 100, 290);

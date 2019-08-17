@@ -7,11 +7,6 @@ class SceneTitle extends GuaScene {
     });
   }
 
-  static new(game) {
-    var i = new this(game);
-    return i;
-  }
-
   draw() {
     // draw labels
     this.game.context.fillText("按 k 开始游戏", 100, 190);
