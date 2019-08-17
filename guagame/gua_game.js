@@ -25,7 +25,7 @@ class GuaGame {
   }
 
   drawImage(img) {
-    this.context.drawImage(img.image, img.x, img.y);
+    this.context.drawImage(img.texture, img.x, img.y);
   }
 
   // update
@@ -86,15 +86,15 @@ class GuaGame {
     }
   }
 
-  imageByName(name) {
+  textureByName(name) {
     var g = this;
     var img = g.images[name];
-    var image = {
-      w: img.width,
-      h: img.height,
-      image: img,
-    };
-    return image;
+    // var image = {
+    //   w: img.width,
+    //   h: img.height,
+    //   image: img,
+    // };
+    return img;
   }
 
   runWithScene(scene) {

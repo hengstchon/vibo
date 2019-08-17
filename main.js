@@ -1,15 +1,3 @@
-var loadLevel = function(game, n) {
-  n = n - 1;
-  level = levels[n];
-  var blocks = [];
-  for (var i = 0; i < level.length; i++) {
-    var p = level[i];
-    var b = Block(game, p);
-    blocks.push(b);
-  }
-  return blocks;
-};
-
 var enableDebugMode = function(game, enable) {
   if (!enable) {
     return;
@@ -36,13 +24,14 @@ var enableDebugMode = function(game, enable) {
 
 var __main = function() {
   var images = {
-    ball: "img/ball.png",
-    block: "img/block.png",
-    paddle: "img/paddle.png",
+    bullet: "img/bullet.png",
+    cloud: "img/cloud.png",
+    player: "img/player.png",
+    sky: "img/sky.png",
   };
 
   var game = GuaGame.instance(30, images, function(g) {
-    var s = SceneTitle.new(g);
+    var s = Scene.new(g);
     g.runWithScene(s);
   });
 
