@@ -4,7 +4,7 @@ var SceneEnd = function(game) {
   };
 
   game.registerAction("r", function() {
-    var s = new SceneTitle(game);
+    var s = SceneTitle.new(game);
     game.replaceScene(s);
   });
 
