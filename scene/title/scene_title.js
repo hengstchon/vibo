@@ -1,20 +1,19 @@
-// var SceneTitle = function(game) {
-//   var s = {
-//     game: game,
-//   };
+class SceneTitle extends GuaScene {
+  constructor(game) {
+    super(game);
+    game.registerAction("k", function() {
+      var s = Scene(game);
+      game.replaceScene(s);
+    });
+  }
 
-//   game.registerAction("k", function() {
-//     var s = Scene(game);
-//     game.replaceScene(s);
-//   });
+  static new(game) {
+    var i = new this(game);
+    return i;
+  }
 
-//   // 初始化
-//   s.draw = function() {
-//     // draw labels
-//     game.context.fillText("按 k 开始游戏", 100, 190);
-//   };
-
-//   s.update = function() {};
-
-//   return s;
-// };
+  draw() {
+    // draw labels
+    this.game.context.fillText("按 k 开始游戏", 100, 190);
+  }
+}
